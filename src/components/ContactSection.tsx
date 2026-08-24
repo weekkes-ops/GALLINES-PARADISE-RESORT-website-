@@ -104,8 +104,22 @@ export const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <p className="font-bold text-[#2d2d2a] uppercase text-[11px]">Direct Reservations Hotline</p>
-                    <p className="text-[#54534e] font-mono font-medium">{RESORT_INFO.phone}</p>
-                    <p className="text-[#686762] text-xs">Available 24 hours a day, 7 days a week</p>
+                    <div className="flex flex-wrap items-center gap-2 mt-0.5">
+                      <a 
+                        href="tel:074645364" 
+                        className="text-[#4a5340] font-mono font-bold hover:underline bg-[#ede9dc]/60 px-2 py-0.5 rounded-md"
+                      >
+                        074-645364
+                      </a>
+                      <span className="text-[#8c8a82]">/</span>
+                      <a 
+                        href="tel:076317474" 
+                        className="text-[#4a5340] font-mono font-bold hover:underline bg-[#ede9dc]/60 px-2 py-0.5 rounded-md"
+                      >
+                        076317474
+                      </a>
+                    </div>
+                    <p className="text-[#686762] text-xs mt-1">Available 24 hours a day, 7 days a week</p>
                   </div>
                 </div>
 
@@ -117,12 +131,12 @@ export const ContactSection: React.FC = () => {
                   <div>
                     <p className="font-bold text-[#2d2d2a] uppercase text-[11px]">Instant WhatsApp Concierge</p>
                     <a
-                      href="https://wa.me/23276000888?text=Hello%20Gallines%20Paradise%20Resort,%20I%20would%20like%20to%20inquire%20about%20a%20booking."
+                      href="https://wa.me/23274645364?text=Hello%20Galiness%20Paradise%20Resort,%20I%20would%20like%20to%20inquire%20about%20a%20booking."
                       target="_blank"
                       rel="noreferrer"
                       className="text-[#4a5340] font-semibold hover:underline flex items-center gap-1"
                     >
-                      <span>Chat with Concierge on WhatsApp</span>
+                      <span>Chat with Concierge (+232 74 645364)</span>
                       <Send className="w-3 h-3" />
                     </a>
                   </div>

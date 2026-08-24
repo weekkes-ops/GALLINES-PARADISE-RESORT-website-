@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ROOMS_DATA, RESORT_INFO } from '../data/resortData';
+import { ROOMS_DATA, RESORT_INFO, RESORT_LOGO } from '../data/resortData';
 import { Currency, Room, StoredBooking } from '../types';
 import { createBookingRecord } from '../services/adminService';
 import confetti from 'canvas-confetti';
@@ -710,10 +710,16 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               {/* Official Voucher Card */}
               <div className="glass-gold p-6 rounded-3xl border border-amber-500/40 space-y-4 relative">
                 <div className="flex items-center justify-between pb-3 border-b border-amber-500/30">
-                  <div className="flex items-center gap-2">
-                    <Crown className="w-5 h-5 text-amber-400" />
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-full bg-white p-0.5 border border-amber-400/40 shrink-0 flex items-center justify-center overflow-hidden shadow-sm">
+                      <img
+                        src={RESORT_LOGO}
+                        alt="Galiness Paradise Resort Logo"
+                        className="w-full h-full object-contain p-0.5"
+                      />
+                    </div>
                     <div>
-                      <p className="font-display text-sm font-bold text-white uppercase">Gallines Paradise Resort</p>
+                      <p className="font-display text-sm font-bold text-white uppercase">Galiness Paradise Resort</p>
                       <p className="text-[10px] text-amber-300">Official Guest Reservation Voucher</p>
                     </div>
                   </div>

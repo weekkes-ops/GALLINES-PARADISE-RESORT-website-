@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import { Currency, Room } from './types';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { QuickBookingBar } from './components/QuickBookingBar';
-import { AboutSection } from './components/AboutSection';
-import { RoomsSection } from './components/RoomsSection';
-import { SportsWellnessSection } from './components/SportsWellnessSection';
-import { DiningSection } from './components/DiningSection';
-import { BlogSection } from './components/BlogSection';
-import { AmenitiesSection } from './components/AmenitiesSection';
-import { PaymentSecuritySection } from './components/PaymentSecuritySection';
-import { GallerySection } from './components/GallerySection';
-import { EventsSection } from './components/EventsSection';
-import { ReviewsSection } from './components/ReviewsSection';
-import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { FloatingActions } from './components/FloatingActions';
 import { BookingModal } from './components/BookingModal';
 import { RoomDetailModal } from './components/RoomDetailModal';
 import { AdminDashboardModal } from './components/AdminDashboardModal';
 import { AuthModal } from './components/AuthModal';
+import { ScrollToTop } from './components/ScrollToTop';
 
-export default function App() {
-  // Global State
+// Pages
+import { HomePage } from './pages/HomePage';
+import { RoomsPage } from './pages/RoomsPage';
+import { DiningPage } from './pages/DiningPage';
+import { SportsWellnessPage } from './pages/SportsWellnessPage';
+import { EventsPage } from './pages/EventsPage';
+import { GalleryPage } from './pages/GalleryPage';
+import { BlogPage } from './pages/BlogPage';
+import { PaymentsPage } from './pages/PaymentsPage';
+import { ContactPage } from './pages/ContactPage';
+import { BookingPage } from './pages/BookingPage';
+
+function AppContent() {
+  // Global Currency State
   const [currency, setCurrency] = useState<Currency>('USD');
+
+  // Modals State
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedRoomForDetail, setSelectedRoomForDetail] = useState<Room | null>(null);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  
+
   // Quick Search filters passed to booking modal
   const [bookingPref, setBookingPref] = useState<{
     roomId?: string;
@@ -54,16 +57,10 @@ export default function App() {
     setIsBookingModalOpen(true);
   };
 
-  const handleScrollToBlog = () => {
-    const blogEl = document.getElementById('blog');
-    if (blogEl) {
-      blogEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#f8f7f2] text-[#2d2d2a] font-sans selection:bg-[#4a5340] selection:text-[#f8f7f2] flex flex-col antialiased">
-      
+      <ScrollToTop />
+
       {/* Navigation Header */}
       <Navbar
         currency={currency}
@@ -73,60 +70,115 @@ export default function App() {
         onOpenAuth={() => setIsAuthModalOpen(true)}
       />
 
-      {/* Main Content Sections */}
-      <main className="flex-1">
-        {/* Hero Section */}
-        <Hero onOpenBooking={() => setIsBookingModalOpen(true)} />
+      {/* Main Multi-Page Route Content */}
+      <main className="flex-1 pt-20 sm:pt-24">
+        <Routes>
+          {/* 1. Home Page */}
+          <Route
+            path="/"
+            element={
+              <HomePage
+                currency={currency}
+                onOpenBooking={() => setIsBookingModalOpen(true)}
+                onSelectRoom={(room) => setSelectedRoomForDetail(room)}
+                onBookRoom={handleBookRoom}
+                onOpenAdmin={() => setIsAdminModalOpen(true)}
+              />
+            }
+          />
 
-        {/* Quick Booking Check Availability Bar */}
-        <QuickBookingBar
-          onSearch={(searchData) =>
-            handleOpenBookingWithPref({
-              checkIn: searchData.checkIn,
-              checkOut: searchData.checkOut,
-              adults: searchData.adults,
-              children: searchData.children,
-              roomId: searchData.roomType !== 'all' ? searchData.roomType : undefined,
-            })
-          }
-        />
+          {/* 2. Accommodations & Suites Page */}
+          <Route
+            path="/rooms"
+            element={
+              <RoomsPage
+                currency={currency}
+                onSelectRoom={(room) => setSelectedRoomForDetail(room)}
+                onBookRoom={handleBookRoom}
+              />
+            }
+          />
 
-        {/* About & Estate Heritage */}
-        <AboutSection onOpenBooking={() => setIsBookingModalOpen(true)} />
+          {/* 3. Dining, Thatched Gazebos & Grill Page */}
+          <Route
+            path="/dining"
+            element={
+              <DiningPage
+                currency={currency}
+                onOpenBooking={() => setIsBookingModalOpen(true)}
+              />
+            }
+          />
 
-        {/* Accommodations & Suites */}
-        <RoomsSection
-          currency={currency}
-          onSelectRoom={(room) => setSelectedRoomForDetail(room)}
-          onBookRoom={handleBookRoom}
-        />
+          {/* 4. Sports Arena & Indoor Cardio Gym Page */}
+          <Route
+            path="/wellness"
+            element={
+              <SportsWellnessPage
+                onOpenBooking={() => setIsBookingModalOpen(true)}
+              />
+            }
+          />
 
-        {/* Thatched Gazebos & Dining */}
-        <DiningSection currency={currency} />
+          {/* 5. Grand Events Hall, Banquets & Conferences Page */}
+          <Route
+            path="/events"
+            element={<EventsPage />}
+          />
 
-        {/* Sports Arena, Swimming Pool & Cardio Fitness Gym */}
-        <SportsWellnessSection onOpenBooking={() => setIsBookingModalOpen(true)} />
+          {/* 6. Official Photo Library & Lightbox Page */}
+          <Route
+            path="/gallery"
+            element={<GalleryPage />}
+          />
 
-        {/* Resort Blog & Stories Section */}
-        <BlogSection onOpenAdmin={() => setIsAdminModalOpen(true)} />
+          {/* 7. Resort Journal, News & Articles Page */}
+          <Route
+            path="/blog"
+            element={
+              <BlogPage
+                onOpenAdmin={() => setIsAdminModalOpen(true)}
+              />
+            }
+          />
 
-        {/* Resort Amenities Breakdown */}
-        <AmenitiesSection onOpenBooking={() => setIsBookingModalOpen(true)} />
+          {/* 8. Payments, Orange Money, SLCB QR & Policies Page */}
+          <Route
+            path="/payments"
+            element={<PaymentsPage />}
+          />
 
-        {/* Mobile Payments (Orange Money & SLCB QR) & 24/7 Front Desk */}
-        <PaymentSecuritySection />
+          {/* 9. Location, Direct Hotlines, Shuttle & FAQs Page */}
+          <Route
+            path="/contact"
+            element={<ContactPage />}
+          />
 
-        {/* Photo Gallery & Lightbox */}
-        <GallerySection />
+          {/* 10. Direct Reservation Booking Engine Page */}
+          <Route
+            path="/book"
+            element={
+              <BookingPage
+                currency={currency}
+                onCurrencyChange={setCurrency}
+              />
+            }
+          />
 
-        {/* Events, Weddings & Conferences */}
-        <EventsSection />
-
-        {/* Verified Reviews & Ratings */}
-        <ReviewsSection />
-
-        {/* Contact, Location & FAQs */}
-        <ContactSection />
+          {/* Fallback to Home */}
+          <Route
+            path="*"
+            element={
+              <HomePage
+                currency={currency}
+                onOpenBooking={() => setIsBookingModalOpen(true)}
+                onSelectRoom={(room) => setSelectedRoomForDetail(room)}
+                onBookRoom={handleBookRoom}
+                onOpenAdmin={() => setIsAdminModalOpen(true)}
+              />
+            }
+          />
+        </Routes>
       </main>
 
       {/* Global Footer */}
@@ -135,7 +187,7 @@ export default function App() {
       {/* Floating Action Buttons */}
       <FloatingActions onOpenBooking={() => setIsBookingModalOpen(true)} />
 
-      {/* Interactive Booking Engine Modal */}
+      {/* Interactive Quick Booking Modal (Overlay) */}
       <BookingModal
         isOpen={isBookingModalOpen}
         currency={currency}
@@ -162,7 +214,10 @@ export default function App() {
       <AdminDashboardModal
         isOpen={isAdminModalOpen}
         onClose={() => setIsAdminModalOpen(false)}
-        onOpenPublicBlog={handleScrollToBlog}
+        onOpenPublicBlog={() => {
+          setIsAdminModalOpen(false);
+          window.location.href = '/blog';
+        }}
       />
 
       {/* Authentication Modal */}
@@ -171,7 +226,14 @@ export default function App() {
         onClose={() => setIsAuthModalOpen(false)}
         onSuccess={() => setIsAdminModalOpen(true)}
       />
-
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }

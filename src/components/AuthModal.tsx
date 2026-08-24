@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, ShieldCheck, Mail, Lock, User, Sparkles, LogIn, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { RESORT_LOGO } from '../data/resortData';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -75,8 +76,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <X className="w-4 h-4" />
           </button>
 
-          <div className="w-12 h-12 rounded-2xl bg-[#4a5340] text-[#f8f7f2] flex items-center justify-center mx-auto mb-3 shadow-md">
-            <ShieldCheck className="w-6 h-6" />
+          <div className="w-14 h-14 rounded-full p-0.5 border border-[#d8d4c7] shadow-md bg-white overflow-hidden mx-auto mb-3 flex items-center justify-center">
+            <img
+              src={RESORT_LOGO}
+              alt="Galiness Paradise Resort Official Logo"
+              className="w-full h-full object-contain p-0.5"
+            />
           </div>
           
           <h3 className="font-display font-bold text-xl text-[#2d2d2a]">

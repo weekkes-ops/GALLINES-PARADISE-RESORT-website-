@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { RESORT_INFO } from '../data/resortData';
+import { Link } from 'react-router-dom';
+import { RESORT_INFO, RESORT_LOGO } from '../data/resortData';
 import { 
   Crown, 
   MapPin, 
@@ -34,21 +35,23 @@ export const Footer: React.FC = () => {
           
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#4a5340] p-0.5 flex items-center justify-center">
-                <div className="w-full h-full bg-[#4a5340] rounded-full flex items-center justify-center">
-                  <Crown className="w-5 h-5 text-[#f8f7f2]" />
-                </div>
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full p-0.5 border border-[#d8d4c7] shadow-sm bg-white overflow-hidden shrink-0 flex items-center justify-center">
+                <img
+                  src={RESORT_LOGO}
+                  alt="Galiness Paradise Resort Logo"
+                  className="w-full h-full object-contain p-0.5"
+                />
               </div>
               <div>
                 <span className="font-display text-lg font-bold text-[#2d2d2a] tracking-wider uppercase">
-                  GALLINES PARADISE
+                  GALINESS PARADISE
                 </span>
                 <p className="text-[10px] text-[#7c6344] uppercase tracking-widest font-semibold">
-                  Luxury Resort & Hotel
+                  Resort & Hotel • Relax & Unwind
                 </p>
               </div>
-            </div>
+            </Link>
 
             <p className="text-[#686762] text-xs leading-relaxed">
               Sierra Leone’s premier tropical sanctuary. Executive presidential living suites, private thatched garden gazebos, all-weather turf sports court, and modern fitness center with 24/7 solar/generator power.
@@ -74,26 +77,27 @@ export const Footer: React.FC = () => {
               Accommodations
             </h4>
             <ul className="space-y-2">
-              <li><a href="#rooms" className="hover:text-[#4a5340] transition-colors">Presidential Suites</a></li>
-              <li><a href="#rooms" className="hover:text-[#4a5340] transition-colors">Deluxe King Rooms</a></li>
-              <li><a href="#rooms" className="hover:text-[#4a5340] transition-colors">Garden Chalet Villas</a></li>
-              <li><a href="#rooms" className="hover:text-[#4a5340] transition-colors">Family Twin Suites</a></li>
-              <li><a href="#rooms" className="hover:text-[#4a5340] transition-colors">In-Room Amenities</a></li>
+              <li><Link to="/rooms" className="hover:text-[#4a5340] transition-colors">Presidential Suites</Link></li>
+              <li><Link to="/rooms" className="hover:text-[#4a5340] transition-colors">Deluxe King Rooms</Link></li>
+              <li><Link to="/rooms" className="hover:text-[#4a5340] transition-colors">Garden Chalet Villas</Link></li>
+              <li><Link to="/rooms" className="hover:text-[#4a5340] transition-colors">Family Twin Suites</Link></li>
+              <li><Link to="/book" className="hover:text-[#4a5340] font-semibold text-[#4a5340] transition-colors">Reserve Online →</Link></li>
             </ul>
           </div>
 
           {/* Amenities Nav Col */}
           <div className="lg:col-span-2 space-y-3">
             <h4 className="font-display text-xs font-bold text-[#2d2d2a] uppercase tracking-widest">
-              Resort Features
+              Resort Pages
             </h4>
             <ul className="space-y-2">
-              <li><a href="#sports-wellness" className="hover:text-[#4a5340] transition-colors">Turf Sports Court</a></li>
-              <li><a href="#sports-wellness" className="hover:text-[#4a5340] transition-colors">Cardio Fitness Gym</a></li>
-              <li><a href="#dining" className="hover:text-[#4a5340] transition-colors">Thatched Gazebos</a></li>
-              <li><a href="#dining" className="hover:text-[#4a5340] transition-colors">Paradise Grill & Bar</a></li>
-              <li><a href="#events" className="hover:text-[#4a5340] transition-colors">Grand Event Hall</a></li>
-              <li><a href="#gallery" className="hover:text-[#4a5340] transition-colors">Photo Gallery</a></li>
+              <li><Link to="/wellness" className="hover:text-[#4a5340] transition-colors">Turf Sports & Pool</Link></li>
+              <li><Link to="/wellness" className="hover:text-[#4a5340] transition-colors">Indoor Fitness Gym</Link></li>
+              <li><Link to="/dining" className="hover:text-[#4a5340] transition-colors">Thatched Gazebos</Link></li>
+              <li><Link to="/dining" className="hover:text-[#4a5340] transition-colors">Paradise Grill Menu</Link></li>
+              <li><Link to="/events" className="hover:text-[#4a5340] transition-colors">Grand Events Hall</Link></li>
+              <li><Link to="/gallery" className="hover:text-[#4a5340] transition-colors">Photo Library</Link></li>
+              <li><Link to="/blog" className="hover:text-[#4a5340] transition-colors">Resort Journal</Link></li>
             </ul>
           </div>
 
@@ -130,10 +134,10 @@ export const Footer: React.FC = () => {
               </form>
             )}
 
-            <div className="pt-2 space-y-1 text-[#686762] text-[11px]">
+            <div className="pt-2 space-y-1.5 text-[#686762] text-[11px]">
               <p className="flex items-center gap-1.5">
                 <Phone className="w-3 h-3 text-[#4a5340]" />
-                <span>{RESORT_INFO.phone}</span>
+                <span>Hotlines: <a href="tel:074645364" className="font-bold text-[#2d2d2a] hover:underline">074-645364</a> / <a href="tel:076317474" className="font-bold text-[#2d2d2a] hover:underline">076317474</a></span>
               </p>
               <p className="flex items-center gap-1.5">
                 <Mail className="w-3 h-3 text-[#4a5340]" />
@@ -152,11 +156,11 @@ export const Footer: React.FC = () => {
         <div className="pt-8 border-t border-[#d8d4c7] flex flex-col sm:flex-row items-center justify-between gap-4 text-[#686762] text-[11px]">
           <p>© 2026 Gallines Paradise Resort & Hotel. All Rights Reserved.</p>
           <div className="flex items-center gap-4">
-            <a href="#about" className="hover:text-[#4a5340] transition-colors">Privacy Policy</a>
+            <Link to="/payments" className="hover:text-[#4a5340] transition-colors">Payment Policies</Link>
             <span>•</span>
-            <a href="#about" className="hover:text-[#4a5340] transition-colors">Terms of Hospitality</a>
+            <Link to="/contact" className="hover:text-[#4a5340] transition-colors">Location & FAQs</Link>
             <span>•</span>
-            <a href="#contact" className="hover:text-[#4a5340] transition-colors">Guest Support</a>
+            <Link to="/contact" className="hover:text-[#4a5340] transition-colors">Guest Concierge</Link>
           </div>
         </div>
 

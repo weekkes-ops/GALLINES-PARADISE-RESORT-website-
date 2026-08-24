@@ -15,8 +15,12 @@ import modernBathroomImg from '../assets/images/resort_modern_bathroom_178760141
 import eventsHallImg from '../assets/images/resort_events_hall_1787601428209.jpg'; // WA0030: Conference & Events Hall facade with grand white arched portico
 import nightViewImg from '../assets/images/resort_night_view_1787601445191.jpg'; // WA0029: Modern multi-story building & illuminated gate at night
 import tropicalPalmsImg from '../assets/images/resort_tropical_palms_1787601462038.jpg'; // WA0041: Tropical coconut palms, gardens and resort villa estate
+import resortOfficialLogoImg from '../assets/images/resort_official_logo_1787607547106.jpg'; // Official Galiness Paradise Resort Emblem & Wordmark Logo
+
+export const RESORT_LOGO = resortOfficialLogoImg;
 
 export const RESORT_IMAGES = {
+  logo: resortOfficialLogoImg,
   hero: estateDrivewayImg,
   entranceSign: entranceSignImg,
   driveway: estateDrivewayImg,
@@ -27,25 +31,59 @@ export const RESORT_IMAGES = {
   pool: estateDrivewayImg,
   dining: thatchedGazebosImg,
   gazeboGarden: thatchedGazebosImg,
+  thatchedGazebos: thatchedGazebosImg,
   bathroom: modernBathroomImg,
   sports: sportsArenaImg,
+  sportsArena: sportsArenaImg,
   reception: receptionDeskImg,
   gym: fitnessGymImg,
+  fitnessGym: fitnessGymImg,
   eventsHall: eventsHallImg,
+  grandEventsHall: eventsHallImg,
   nightView: nightViewImg,
   tropicalExterior: tropicalPalmsImg,
+  resortGrounds: estateDrivewayImg,
+  presidentialLiving: presidentialLoungeImg,
+  presidentialBedroom: stoneBedroomImg,
   exteriorEstate: eventsHallImg
 };
 
+export const FAQS = [
+  {
+    q: "What are the check-in and check-out times at Galiness Paradise Resort?",
+    a: "Standard check-in begins at 2:00 PM and check-out is by 11:00 AM. Early check-in or late check-out can be arranged upon request depending on room availability."
+  },
+  {
+    q: "Which payment methods are accepted at reception?",
+    a: "We accept Orange Money (QR scan & direct transfer), Sierra Leone Commercial Bank (SLCB) QR Payment, Visa/Mastercard credit & debit cards, and cash in USD or New Leones (NLe)."
+  },
+  {
+    q: "Are the gym and sports court accessible for hotel guests?",
+    a: "Yes! In-house guests enjoy complimentary access to our indoor cardio and fitness gym as well as the all-weather turf sports arena. Tennis rackets and footballs are available at the front desk."
+  },
+  {
+    q: "Is electricity and air conditioning reliable 24/7?",
+    a: "Yes, Galiness Paradise is equipped with a heavy-duty backup power infrastructure combining solar generation and continuous industrial diesel generators to ensure uninterrupted 24/7 cool air conditioning and power."
+  },
+  {
+    q: "Do you offer airport or inter-city pickup transfers?",
+    a: "Yes, our VIP chauffeur concierge offers comfortable air-conditioned shuttle services from Freetown International Airport (Lungi / Freetown) or surrounding provinces directly to the resort gates."
+  }
+];
+
 export const RESORT_INFO = {
-  name: "Gallines Paradise Resort",
-  formalName: "Gallines Paradise Hotel & Luxury Resort",
-  tagline: "Your Tropical Sanctuary of Comfort, Elegance & Leisure",
-  description: "Nestled in a lush tropical oasis, Gallines Paradise Resort blends serene nature with presidential comfort. Featuring executive suites with private lounges, traditional thatched garden gazebos, an all-weather sports complex, state-of-the-art fitness gym, and seamless hospitality with modern mobile payment integration.",
+  name: "Galiness Paradise Resort",
+  formalName: "Galiness Paradise Resort & Hotel",
+  tagline: "Relax • Unwind • Paradise Awaits",
+  description: "Nestled in a lush tropical oasis, Galiness Paradise Resort blends serene nature with presidential comfort. Featuring executive suites with private lounges, traditional thatched garden gazebos, an all-weather sports complex, state-of-the-art fitness gym, and seamless hospitality with modern mobile payment integration.",
   address: "Paradise Avenue, Palm Grove Enclave, Bo / Southern Province, Sierra Leone",
-  phone: "+232 76 000 888 / +232 88 555 222",
-  whatsapp: "+232 76 000 888",
-  email: "reservations@gallinesparadiseresort.com",
+  phone: "074-645364 / 076317474",
+  phoneAlt: "076317474",
+  phonePrimary: "074-645364",
+  phoneIntl1: "+232 74 645364",
+  phoneIntl2: "+232 76 317474",
+  whatsapp: "+232 74 645364",
+  email: "reservations@galinessparadiseresort.com",
   checkInTime: "2:00 PM",
   checkOutTime: "11:00 AM",
   rating: 4.9,
@@ -559,3 +597,6 @@ export const REVIEWS_DATA: Review[] = [
     verified: true
   }
 ];
+
+export const DINING_MENU = MENU_ITEMS;
+

@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { BlogPost, StoredBooking, UserProfile, UserRole } from '../types';
-import { GALLERY_ITEMS, RESORT_IMAGES } from '../data/resortData';
+import { GALLERY_ITEMS, RESORT_IMAGES, RESORT_LOGO } from '../data/resortData';
 import {
   fetchBlogPosts,
   createBlogPost,
@@ -253,13 +253,17 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
         {/* Modal Header */}
         <div className="px-6 py-4 bg-[#f8f7f2] border-b border-[#e3dfd6] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#4a5340] text-[#f8f7f2] flex items-center justify-center shadow-md">
-              <ShieldCheck className="w-5 h-5" />
+            <div className="w-11 h-11 rounded-full p-0.5 border border-[#d8d4c7] shadow-sm bg-white overflow-hidden shrink-0 flex items-center justify-center">
+              <img
+                src={RESORT_LOGO}
+                alt="Galiness Paradise Logo"
+                className="w-full h-full object-contain p-0.5"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="font-display font-bold text-lg text-[#2d2d2a]">
-                  Gallines Paradise Control Center
+                  Galiness Paradise Control Center
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#4a5340]/10 text-[#4a5340] uppercase border border-[#4a5340]/20">
                   {profile?.role === 'admin' ? 'Super Administrator' : 'Staff Member'}
