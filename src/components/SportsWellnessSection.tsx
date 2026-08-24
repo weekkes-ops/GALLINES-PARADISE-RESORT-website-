@@ -18,7 +18,7 @@ interface SportsWellnessSectionProps {
 }
 
 export const SportsWellnessSection: React.FC<SportsWellnessSectionProps> = ({ onOpenBooking }) => {
-  const [activeTab, setActiveTab] = useState<'pool' | 'arena' | 'gym'>('pool');
+  const [activeTab, setActiveTab] = useState<'arena' | 'gym' | 'grounds'>('arena');
 
   return (
     <section id="sports-wellness" className="py-20 sm:py-28 relative bg-[#f8f7f2] overflow-hidden">
@@ -36,26 +36,14 @@ export const SportsWellnessSection: React.FC<SportsWellnessSectionProps> = ({ on
             <span>Active Living & Recreation</span>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-[#2d2d2a] tracking-tight">
-            Swimming Pool, <span className="emerald-gradient-text">Sports Complex</span> & Fitness Gym
+            Sports Arena, <span className="emerald-gradient-text">Fitness Gym</span> & Estate Grounds
           </h2>
           <p className="text-[#686762] text-sm sm:text-base leading-relaxed">
-            Elevate your leisure and wellness routine. Gallines Paradise features a sparkling outdoor swimming pool with sun deck, an all-weather fenced sports arena, and an indoor fitness gym.
+            Elevate your wellness routine. Gallines Paradise features an all-weather fenced sports turf arena, an indoor air-conditioned fitness gym, and serene paved estate avenues for jogging and walks.
           </p>
 
           {/* Toggle Tab */}
           <div className="inline-flex p-1.5 rounded-2xl bg-[#ffffff] border border-[#d8d4c7] shadow-sm mt-4 flex-wrap justify-center gap-1">
-            <button
-              type="button"
-              onClick={() => setActiveTab('pool')}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === 'pool'
-                  ? 'bg-[#4a5340] text-[#f8f7f2] shadow-md'
-                  : 'text-[#686762] hover:text-[#2d2d2a]'
-              }`}
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Swimming Pool & Deck</span>
-            </button>
             <button
               type="button"
               onClick={() => setActiveTab('arena')}
@@ -80,19 +68,31 @@ export const SportsWellnessSection: React.FC<SportsWellnessSectionProps> = ({ on
               <Dumbbell className="w-4 h-4" />
               <span>Cardio & Fitness Gym</span>
             </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('grounds')}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                activeTab === 'grounds'
+                  ? 'bg-[#4a5340] text-[#f8f7f2] shadow-md'
+                  : 'text-[#686762] hover:text-[#2d2d2a]'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Estate Avenues & Chalets</span>
+            </button>
           </div>
         </div>
 
-        {/* Tab 0: Outdoor Swimming Pool */}
-        {activeTab === 'pool' && (
+        {/* Tab 0: Paved Estate Grounds & Chalets */}
+        {activeTab === 'grounds' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center animate-in fade-in duration-300">
             
             {/* Left: Image Showcase */}
             <div className="lg:col-span-7 space-y-4">
               <div className="relative rounded-3xl overflow-hidden border border-[#d8d4c7] shadow-xl group bg-[#e9e5db]">
                 <img
-                  src={RESORT_IMAGES.pool}
-                  alt="Outdoor Swimming Pool at Gallines Paradise Resort"
+                  src={RESORT_IMAGES.driveway}
+                  alt="Paved Estate Driveway & Chalets at Gallines Paradise Resort"
                   className="w-full h-80 sm:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
@@ -101,15 +101,15 @@ export const SportsWellnessSection: React.FC<SportsWellnessSectionProps> = ({ on
                 <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center justify-between gap-3 bg-[#ffffff]/95 backdrop-blur-md p-4 rounded-2xl border border-[#d8d4c7] shadow-md">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-[#4a5340]/10 text-[#4a5340] flex items-center justify-center">
-                      <Sparkles className="w-5 h-5" />
+                      <ShieldCheck className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-[#2d2d2a] uppercase">Outdoor Swimming Pool</p>
-                      <p className="text-[11px] text-[#686762]">Crystal Water • Sun Loungers • Palm Views</p>
+                      <p className="text-xs font-bold text-[#2d2d2a] uppercase">Private Gated Estate</p>
+                      <p className="text-[11px] text-[#686762]">Cobblestone Avenues • Planter Boxes • 24/7 Security</p>
                     </div>
                   </div>
                   <span className="px-3 py-1 rounded-full bg-[#ede9dc] text-[#4a5340] text-xs font-bold border border-[#d8d4c7]">
-                    Complimentary for Guests
+                    Quiet Gated Sanctuary
                   </span>
                 </div>
               </div>
@@ -119,23 +119,23 @@ export const SportsWellnessSection: React.FC<SportsWellnessSectionProps> = ({ on
             <div className="lg:col-span-5 space-y-6">
               <div className="space-y-3">
                 <span className="text-xs font-bold text-[#4a5340] uppercase tracking-widest">
-                  Resort Oasis & Leisure
+                  Serene Estate Living
                 </span>
                 <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#2d2d2a]">
-                  Sparkling Swimming Pool & Terrace
+                  Paved Cobblestone Avenues & Gardens
                 </h3>
                 <p className="text-sm text-[#686762] leading-relaxed">
-                  Relax in the cool tropical water after a productive meeting or sports match. Our pristine pool features terraced steps with safety rails, surrounded by comfortable poolside sun loungers and swaying palm trees.
+                  Stroll peacefully down our paved cobblestone avenues, bordered by lush green turf, raised planter boxes of snake plants, and detached private chalets.
                 </p>
               </div>
 
               {/* Highlights */}
               <div className="space-y-3 pt-2">
                 {[
-                  { title: "Crystal Clean Filtered Water", desc: "Maintained daily to international hospitality sanitation standards." },
-                  { title: "Terraced Steps & Handrails", desc: "Easy, gradual entry for swimmers of all confidence levels." },
-                  { title: "Poolside Sunbeds & Loungers", desc: "Relax with chilled drinks and fresh towels from our staff." },
-                  { title: "Surrounded by Palms & Chalets", desc: "Scenic tropical ambiance nestled right inside the resort grounds." },
+                  { title: "Cobblestone Paved Avenues", desc: "Clean, scenic paths ideal for morning walks and peaceful strolls." },
+                  { title: "Raised Stone Planters", desc: "Lush green snake plants and manicured ornamental flora." },
+                  { title: "Detached Private Chalets", desc: "Individual private residences with covered front porches." },
+                  { title: "Gated Perimeter Security", desc: "Round-the-clock trained security officers at entry and exit." },
                 ].map((h, i) => (
                   <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-[#ffffff] border border-[#e3dfd6] shadow-sm">
                     <CheckCircle2 className="w-4 h-4 text-[#4a5340] shrink-0 mt-0.5" />
@@ -155,11 +155,11 @@ export const SportsWellnessSection: React.FC<SportsWellnessSectionProps> = ({ on
                   className="px-6 py-3 rounded-xl bg-[#4a5340] hover:bg-[#3d4534] text-[#f8f7f2] font-bold uppercase tracking-wider text-xs shadow-md shadow-[#4a5340]/20 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Reserve Stay & Pool Pass</span>
+                  <span>Reserve a Private Chalet</span>
                 </button>
                 <span className="text-xs text-[#686762] flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-[#4a5340]" />
-                  <span>Open 7:00 AM – 8:00 PM Daily</span>
+                  <span>24/7 Security Patrol</span>
                 </span>
               </div>
 

@@ -13,27 +13,30 @@ import {
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { BlogPost, StoredBooking, UserProfile, UserRole } from '../types';
+import entranceSignImg from '../assets/images/resort_entrance_sign_1787601225225.jpg';
+import thatchedGazebosImg from '../assets/images/resort_thatched_gazebos_1787601285116.jpg';
+import sportsArenaImg from '../assets/images/resort_sports_arena_1787601301684.jpg';
 
 // ==================== BLOG POSTS SERVICE ====================
 
 const SAMPLE_INITIAL_POSTS: Omit<BlogPost, 'id'>[] = [
   {
-    title: "Introducing Gallines Paradise: Your Tropical Oasis & Sports Sanctuary",
+    title: "Welcome to Gallines Paradise: Luxury Living & Leisure Sanctuary",
     slug: "introducing-gallines-paradise-resort",
-    excerpt: "Discover our newly elevated chalets, sparkling swimming pool, traditional thatched gazebos, and all-weather sports arena in Bonthe District.",
-    content: `Welcome to Gallines Paradise Resort — where authentic West African hospitality meets modern luxury. Nestled along tranquil palm avenues, our estate offers a serene escape featuring private chalets, a signature outdoor swimming pool, authentic conical thatched gazebos, and an all-weather sports court.
+    excerpt: "Discover our paved estate chalets, presidential suites, handcrafted thatched gazebos, and all-weather sports arena in Bo, Southern Province.",
+    content: `Welcome to Gallines Paradise Resort — where authentic West African hospitality meets modern luxury. Nestled along peaceful palm avenues, our estate offers a serene escape featuring private suites with living lounges, traditional conical thatched dining gazebos, and an all-weather sports complex.
 
-Whether you're planning a romantic weekend getaway, hosting an executive corporate summit, or looking for an active holiday with tennis and cardio workouts, Gallines Paradise is designed to exceed your expectations.
+Whether you're planning a romantic weekend getaway, hosting an executive corporate summit, or looking for an active holiday with tennis and cardio gym sessions, Gallines Paradise is designed to exceed your expectations.
 
 Enjoy locally sourced culinary specialties, evening cocktails under lantern-lit cabanas, and uninterrupted comfort powered by 24/7 sustainable energy.`,
-    coverImage: "/src/assets/images/resort_garden_gazebos_1787598782947.jpg",
+    coverImage: entranceSignImg,
     category: "Resort News",
     authorId: "admin-system",
     authorName: "Gallines Paradise Editorial",
     status: "published",
     readTime: "4 min read",
     publishedAt: "2026-08-20T10:00:00Z",
-    tags: ["Resort", "Luxury", "Bonthe", "Sierra Leone"]
+    tags: ["Resort", "Luxury", "Bo", "Sierra Leone"]
   },
   {
     title: "Culinary Highlights: Dining Under the Thatched Gazebos",
@@ -41,8 +44,8 @@ Enjoy locally sourced culinary specialties, evening cocktails under lantern-lit 
     excerpt: "Experience fresh grilled fish, spicy jollof rice, and cold tropical cocktails served in the private shade of our authentic palm garden cabanas.",
     content: `Dining at Gallines Paradise is more than just a meal — it is a sensory celebration. Our master chefs combine the rich traditions of Sierra Leonean cuisine with international continental favorites.
 
-Guests can dine in our private conical thatched gazebos surrounded by swaying coconut palms and fragrant tropical flora. Highlights include grilled red snapper caught fresh from coastal waters, rich groundnut stew, fragrant jollof rice, and signature ginger cocktails.`,
-    coverImage: "/src/assets/images/resort_dining_garden_1787582173483.jpg",
+Guests can dine in our private conical thatched gazebos surrounded by swaying coconut palms and fragrant tropical flora. Highlights include grilled red snapper caught fresh from coastal waters, rich cassava leaf stew, fragrant jollof rice, and signature ginger cocktails.`,
+    coverImage: thatchedGazebosImg,
     category: "Dining & Cuisine",
     authorId: "admin-system",
     authorName: "Executive Chef Team",
@@ -52,20 +55,20 @@ Guests can dine in our private conical thatched gazebos surrounded by swaying co
     tags: ["Dining", "Seafood", "Gazebos", "Local Cuisine"]
   },
   {
-    title: "Stay Active: Tennis, Cardio & Swimming at Gallines",
-    slug: "wellness-sports-pool-fitness-guide",
-    excerpt: "How to make the most of our fenced sports arena, fitness cardio center, and sparkling swimming pool deck during your stay.",
-    content: `Health and wellness are at the heart of the Gallines Paradise experience. Start your morning with laps in our sparkling turquoise swimming pool, followed by an energizing workout in our air-conditioned gym or a friendly tennis match on our all-weather turf court.
+    title: "Stay Active: Tennis, Cardio & Fitness at Gallines Sports Complex",
+    slug: "wellness-sports-fitness-guide",
+    excerpt: "How to make the most of our fenced sports arena and fitness cardio gym hall during your stay.",
+    content: `Health and wellness are at the heart of the Gallines Paradise experience. Start your morning with an energizing workout in our air-conditioned gym equipped with motorized treadmills and cardio bikes, followed by a competitive tennis or football match on our all-weather turf court.
 
 Complimentary sports equipment, water bottles, and clean towels are always available at the front desk for all resident guests.`,
-    coverImage: "/src/assets/images/resort_swimming_pool_1787598746192.jpg",
+    coverImage: sportsArenaImg,
     category: "Wellness & Sports",
     authorId: "admin-system",
     authorName: "Wellness Director",
     status: "published",
     readTime: "5 min read",
     publishedAt: "2026-08-10T09:15:00Z",
-    tags: ["Wellness", "Swimming Pool", "Sports Court", "Fitness"]
+    tags: ["Wellness", "Sports Arena", "Fitness", "Tennis"]
   }
 ];
 
@@ -81,11 +84,16 @@ export async function fetchBlogPosts(includeDrafts = false): Promise<BlogPost[]>
 
     // If Firestore posts collection is empty, seed initial sample posts
     if (posts.length === 0) {
-      for (const sample of SAMPLE_INITIAL_POSTS) {
-        const newDoc = doc(postsRef);
-        const postData = { ...sample, id: newDoc.id };
-        await setDoc(newDoc, postData);
-        posts.push(postData as BlogPost);
+      try {
+        for (const sample of SAMPLE_INITIAL_POSTS) {
+          const newDoc = doc(postsRef);
+          const postData = { ...sample, id: newDoc.id };
+          await setDoc(newDoc, postData);
+          posts.push(postData as BlogPost);
+        }
+      } catch (seedErr) {
+        // If unauthenticated or no write permissions, provide initial sample posts in memory
+        posts = SAMPLE_INITIAL_POSTS.map((s, idx) => ({ ...s, id: `sample-${idx + 1}` }));
       }
     }
 
@@ -96,7 +104,7 @@ export async function fetchBlogPosts(includeDrafts = false): Promise<BlogPost[]>
     // Sort by publishedAt desc
     return posts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
   } catch (error) {
-    console.error('Error fetching blog posts from Firestore:', error);
+    console.warn('Firestore blog posts fetch fallback to local samples:', error);
     // Return sample posts in fallback
     return SAMPLE_INITIAL_POSTS.map((p, idx) => ({ ...p, id: `sample-${idx}` } as BlogPost));
   }

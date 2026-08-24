@@ -78,8 +78,8 @@ export const AboutSection: React.FC = () => {
                   />
                 </div>
                 <div className="bg-[#ffffff] p-4 rounded-2xl border border-[#e3dfd6] space-y-1 shadow-sm">
-                  <p className="text-xs font-bold text-[#4a5340] uppercase tracking-wider">Resort Pool & Deck</p>
-                  <p className="text-xs text-[#686762]">Sparkling pool, sun terrace & tropical palm views.</p>
+                  <p className="text-xs font-bold text-[#4a5340] uppercase tracking-wider">Grand Events Hall</p>
+                  <p className="text-xs text-[#686762]">Classical arched portico, column architecture & gardens.</p>
                 </div>
               </div>
 

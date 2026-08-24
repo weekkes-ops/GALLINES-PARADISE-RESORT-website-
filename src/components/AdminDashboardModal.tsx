@@ -21,10 +21,15 @@ import {
   Filter,
   Save,
   AlertCircle,
-  ExternalLink
+  ExternalLink,
+  Image as ImageIcon,
+  Upload,
+  Camera,
+  FolderOpen
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { BlogPost, StoredBooking, UserProfile, UserRole } from '../types';
+import { GALLERY_ITEMS, RESORT_IMAGES } from '../data/resortData';
 import {
   fetchBlogPosts,
   createBlogPost,
@@ -50,7 +55,7 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
 }) => {
   const { user, profile, isAdmin, isStaff, signOut } = useAuth();
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'posts' | 'users' | 'bookings'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'posts' | 'users' | 'bookings' | 'media'>('overview');
 
   // Data states
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -385,6 +390,27 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
                 </div>
                 <span className="px-1.5 py-0.5 rounded-md text-[10px] bg-black/10">
                   {bookings.length}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('media');
+                  setIsEditingPost(false);
+                }}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-left cursor-pointer ${
+                  activeTab === 'media'
+                    ? 'bg-[#4a5340] text-[#f8f7f2] shadow-sm'
+                    : 'text-[#686762] hover:bg-[#f2efe7] hover:text-[#2d2d2a]'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <ImageIcon className="w-4 h-4 shrink-0" />
+                  <span>Photos & Media</span>
+                </div>
+                <span className="px-1.5 py-0.5 rounded-md text-[10px] bg-[#4a5340]/10 text-[#4a5340] font-bold">
+                  {GALLERY_ITEMS.length}
                 </span>
               </button>
             </div>
@@ -1036,6 +1062,100 @@ export const AdminDashboardModal: React.FC<AdminDashboardModalProps> = ({
                           ))}
                       </div>
                     )}
+                  </div>
+                )}
+
+                {/* 5. MEDIA & PHOTOS TAB */}
+                {activeTab === 'media' && (
+                  <div className="space-y-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#e3dfd6]">
+                      <div>
+                        <h3 className="font-display text-xl font-bold text-[#2d2d2a]">
+                          Resort Media & Photography Library
+                        </h3>
+                        <p className="text-xs text-[#686762]">
+                          Manage and review all 14 official resort photos, chalets, suites, sports arena, and grounds.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <label className="cursor-pointer px-4 py-2 rounded-xl bg-[#4a5340] hover:bg-[#3d4534] text-[#f8f7f2] text-xs font-bold flex items-center gap-2 shadow-sm transition-all">
+                          <Upload className="w-3.5 h-3.5" />
+                          <span>Upload / Add New Photo</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                showNotification(`Selected "${file.name}". You can drag & drop or upload files to /public/images/ in AI Studio for permanent embedding.`);
+                              }
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Quick Guide Card */}
+                    <div className="p-4 rounded-2xl bg-[#f8f7f2] border border-[#d8d4c7] flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-[#4a5340]/10 text-[#4a5340] flex items-center justify-center shrink-0">
+                        <FolderOpen className="w-4 h-4" />
+                      </div>
+                      <div className="space-y-1 text-xs">
+                        <p className="font-bold text-[#2d2d2a]">How to permanently add original photos to the repository:</p>
+                        <p className="text-[#686762] leading-relaxed">
+                          In Google AI Studio's left sidebar file explorer, you can upload your original full-resolution image files directly into <code className="px-1.5 py-0.5 rounded bg-[#ede9dc] text-[#4a5340] font-mono">public/images/</code> or <code className="px-1.5 py-0.5 rounded bg-[#ede9dc] text-[#4a5340] font-mono">src/assets/images/</code> to display your exact original camera files anywhere in the resort layout.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Media Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {GALLERY_ITEMS.map((item, idx) => (
+                        <div
+                          key={item.id}
+                          className="rounded-2xl border border-[#e3dfd6] overflow-hidden bg-[#ffffff] shadow-sm hover:shadow-md transition-shadow group flex flex-col"
+                        >
+                          <div className="relative h-44 overflow-hidden bg-[#f4f2ec]">
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider">
+                              {item.category}
+                            </div>
+                            <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-[#ede9dc]/90 text-[#4a5340] text-[10px] font-mono font-bold">
+                              #{idx + 1}
+                            </div>
+                          </div>
+
+                          <div className="p-3.5 flex-1 flex flex-col justify-between space-y-2">
+                            <div>
+                              <h4 className="text-xs font-bold text-[#2d2d2a] line-clamp-1">{item.title}</h4>
+                              <p className="text-[11px] text-[#686762] line-clamp-2 mt-0.5">{item.caption}</p>
+                            </div>
+
+                            <div className="pt-2 border-t border-[#f2efe7] flex items-center justify-between text-[10px] text-[#8c8a82]">
+                              <span className="flex items-center gap-1 font-medium text-[#4a5340]">
+                                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                                <span>Active in Gallery</span>
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  showNotification(`Image "${item.title}" is currently active on the resort website.`);
+                                }}
+                                className="text-[#4a5340] hover:underline font-bold"
+                              >
+                                View Details
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </>
