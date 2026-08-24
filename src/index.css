@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-cinzel: 'Cinzel', serif;
+    --font-playfair: 'Playfair Display', serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    --bg-primary: #f8f7f2;
+    --bg-secondary: #f2efe7;
+    --bg-card: #ffffff;
+    --text-primary: #2d2d2a;
+    --text-secondary: #686762;
+    --text-muted: #85837c;
+    --accent-olive: #4a5340;
+    --accent-earth: #7c6344;
+    --border-natural: #e3dfd6;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #f8f7f2;
+    color: #2d2d2a;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-cinzel);
+    color: #2d2d2a;
+  }
+
+  .font-serif {
+    font-family: var(--font-playfair);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f2efe7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d4c7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c6344;
+}
+
+/* Natural Tone Gradient Texts */
+.gold-gradient-text, .natural-gradient-text {
+  background: linear-gradient(135deg, #4a5340 0%, #7c6344 50%, #5a4731 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.emerald-gradient-text, .forest-gradient-text {
+  background: linear-gradient(135deg, #3d5038 0%, #4a5340 50%, #293525 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.earth-gradient-text {
+  background: linear-gradient(135deg, #7c6344 0%, #9e815d 50%, #5c472d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-color: rgba(124, 99, 68, 0.25);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #e3dfd6;
+  box-shadow: 0 4px 20px -2px rgba(45, 45, 42, 0.05);
+}
+
+.glass-gold, .glass-natural {
+  background: rgba(248, 246, 240, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #dcd7ca;
+  box-shadow: 0 4px 24px -4px rgba(45, 45, 42, 0.06);
+}
+
+

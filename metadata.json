@@ -1,0 +1,6 @@
+{
+  "name": "Gallines Paradise Resort",
+  "description": "Official luxury hospitality and booking website for Gallines Paradise Resort featuring accommodations, amenities, sports facilities, dining, events, and instant booking reservation system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
