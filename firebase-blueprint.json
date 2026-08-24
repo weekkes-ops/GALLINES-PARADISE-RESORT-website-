@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile and role information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user identifier (matches auth uid)" },
+        "email": { "type": "string", "format": "email", "description": "User email address" },
+        "displayName": { "type": "string", "description": "Full name or display name" },
+        "photoURL": { "type": "string", "description": "Avatar URL" },
+        "role": { "type": "string", "enum": ["admin", "staff", "guest"], "description": "Access level role" },
+        "phone": { "type": "string", "description": "Phone number" },
+        "status": { "type": "string", "enum": ["active", "suspended"], "description": "Account status" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "lastLoginAt": { "type": "string", "format": "date-time", "description": "Last sign-in timestamp" }
+      },
+      "required": ["id", "email", "role", "createdAt"]
+    },
+    "BlogPost": {
+      "title": "BlogPost",
+      "description": "Resort news, events, guides, and blog articles",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique post identifier" },
+        "title": { "type": "string", "description": "Article headline" },
+        "slug": { "type": "string", "description": "URL friendly slug" },
+        "excerpt": { "type": "string", "description": "Short summary" },
+        "content": { "type": "string", "description": "Full blog article text or markdown" },
+        "coverImage": { "type": "string", "description": "Cover hero image URL" },
+        "category": { "type": "string", "description": "Category name (e.g. Resort News, Local Guide, Dining, Events)" },
+        "authorId": { "type": "string", "description": "Author UID" },
+        "authorName": { "type": "string", "description": "Author display name" },
+        "status": { "type": "string", "enum": ["published", "draft"], "description": "Publication state" },
+        "readTime": { "type": "string", "description": "Estimated reading time" },
+        "publishedAt": { "type": "string", "format": "date-time", "description": "Publication timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last modification timestamp" }
+      },
+      "required": ["id", "title", "content", "status", "category", "authorId"]
+    },
+    "BookingRecord": {
+      "title": "BookingRecord",
+      "description": "Guest room and facility reservations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Booking reference code" },
+        "guestName": { "type": "string", "description": "Primary guest name" },
+        "guestEmail": { "type": "string", "format": "email", "description": "Guest email" },
+        "guestPhone": { "type": "string", "description": "Guest contact phone" },
+        "roomId": { "type": "string", "description": "Reserved room or suite ID" },
+        "roomName": { "type": "string", "description": "Reserved room or suite name" },
+        "checkIn": { "type": "string", "description": "Check-in date" },
+        "checkOut": { "type": "string", "description": "Check-out date" },
+        "nights": { "type": "number", "description": "Number of nights" },
+        "adults": { "type": "number", "description": "Adult count" },
+        "children": { "type": "number", "description": "Child count" },
+        "totalPriceUSD": { "type": "number", "description": "Total amount in USD" },
+        "totalPriceNLE": { "type": "number", "description": "Total amount in NLE" },
+        "currency": { "type": "string", "enum": ["USD", "NLE"], "description": "Payment currency selected" },
+        "paymentMethod": { "type": "string", "description": "Payment method used (e.g., Orange Money, SLCB QR, Card, Pay at Resort)" },
+        "paymentStatus": { "type": "string", "enum": ["pending", "confirmed", "cancelled"], "description": "Payment confirmation status" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "checked_in", "completed", "cancelled"], "description": "Booking workflow state" },
+        "notes": { "type": "string", "description": "Guest special requests" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Booking creation timestamp" }
+      },
+      "required": ["id", "guestName", "guestEmail", "roomId", "checkIn", "checkOut", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Registered user accounts and permissions"
+    },
+    "/posts/{postId}": {
+      "schema": "BlogPost",
+      "description": "Public resort blog posts and announcements"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "BookingRecord",
+      "description": "Guest reservations managed by administrators and front desk"
+    }
+  }
+}

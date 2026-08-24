@@ -7,6 +7,7 @@ import { AboutSection } from './components/AboutSection';
 import { RoomsSection } from './components/RoomsSection';
 import { SportsWellnessSection } from './components/SportsWellnessSection';
 import { DiningSection } from './components/DiningSection';
+import { BlogSection } from './components/BlogSection';
 import { AmenitiesSection } from './components/AmenitiesSection';
 import { PaymentSecuritySection } from './components/PaymentSecuritySection';
 import { GallerySection } from './components/GallerySection';
@@ -17,12 +18,16 @@ import { Footer } from './components/Footer';
 import { FloatingActions } from './components/FloatingActions';
 import { BookingModal } from './components/BookingModal';
 import { RoomDetailModal } from './components/RoomDetailModal';
+import { AdminDashboardModal } from './components/AdminDashboardModal';
+import { AuthModal } from './components/AuthModal';
 
 export default function App() {
   // Global State
   const [currency, setCurrency] = useState<Currency>('USD');
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [selectedRoomForDetail, setSelectedRoomForDetail] = useState<Room | null>(null);
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   
   // Quick Search filters passed to booking modal
   const [bookingPref, setBookingPref] = useState<{
@@ -49,6 +54,13 @@ export default function App() {
     setIsBookingModalOpen(true);
   };
 
+  const handleScrollToBlog = () => {
+    const blogEl = document.getElementById('blog');
+    if (blogEl) {
+      blogEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f8f7f2] text-[#2d2d2a] font-sans selection:bg-[#4a5340] selection:text-[#f8f7f2] flex flex-col antialiased">
       
@@ -57,6 +69,8 @@ export default function App() {
         currency={currency}
         onCurrencyChange={setCurrency}
         onOpenBooking={() => setIsBookingModalOpen(true)}
+        onOpenAdmin={() => setIsAdminModalOpen(true)}
+        onOpenAuth={() => setIsAuthModalOpen(true)}
       />
 
       {/* Main Content Sections */}
@@ -90,8 +104,11 @@ export default function App() {
         {/* Thatched Gazebos & Dining */}
         <DiningSection currency={currency} />
 
-        {/* Sports Arena & Cardio Fitness Gym */}
+        {/* Sports Arena, Swimming Pool & Cardio Fitness Gym */}
         <SportsWellnessSection onOpenBooking={() => setIsBookingModalOpen(true)} />
+
+        {/* Resort Blog & Stories Section */}
+        <BlogSection onOpenAdmin={() => setIsAdminModalOpen(true)} />
 
         {/* Resort Amenities Breakdown */}
         <AmenitiesSection onOpenBooking={() => setIsBookingModalOpen(true)} />
@@ -139,6 +156,20 @@ export default function App() {
           setSelectedRoomForDetail(null);
           handleBookRoom(roomId);
         }}
+      />
+
+      {/* Admin Dashboard & Management Modal */}
+      <AdminDashboardModal
+        isOpen={isAdminModalOpen}
+        onClose={() => setIsAdminModalOpen(false)}
+        onOpenPublicBlog={handleScrollToBlog}
+      />
+
+      {/* Authentication Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onSuccess={() => setIsAdminModalOpen(true)}
       />
 
     </div>

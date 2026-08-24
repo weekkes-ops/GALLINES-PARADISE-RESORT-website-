@@ -1,24 +1,26 @@
 import { Room, Amenity, GalleryItem, MenuItem, Review } from '../types';
 
-// Asset imports
-import heroImg from '../assets/images/resort_hero_luxury_1787582141420.jpg';
-import suiteImg from '../assets/images/resort_suite_luxury_1787582156831.jpg';
-import diningImg from '../assets/images/resort_dining_garden_1787582173483.jpg';
+// Asset imports from real resort photography
+import drivewayImg from '../assets/images/resort_driveway_estate_1787598710227.jpg';
+import stripedSuiteImg from '../assets/images/resort_striped_suite_1787598727993.jpg';
+import swimmingPoolImg from '../assets/images/resort_swimming_pool_1787598746192.jpg';
+import bathroomImg from '../assets/images/resort_modern_bathroom_1787598763930.jpg';
+import gazebosImg from '../assets/images/resort_garden_gazebos_1787598782947.jpg';
 import sportsImg from '../assets/images/resort_sports_court_1787582192421.jpg';
 
 export const RESORT_IMAGES = {
-  hero: heroImg,
-  suite: suiteImg,
-  dining: diningImg,
+  hero: drivewayImg,
+  driveway: drivewayImg,
+  suite: stripedSuiteImg,
+  suiteLounge: stripedSuiteImg,
+  pool: swimmingPoolImg,
+  dining: gazebosImg,
+  gazeboGarden: gazebosImg,
+  bathroom: bathroomImg,
   sports: sportsImg,
-  // High fidelity visual representations of actual resort spaces
   reception: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
-  suiteLounge: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80",
-  gazeboGarden: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
   gym: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
-  bathroom: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80",
-  exteriorEstate: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
-  driveway: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80"
+  exteriorEstate: swimmingPoolImg
 };
 
 export const RESORT_INFO = {
@@ -42,34 +44,34 @@ export const ROOMS_DATA: Room[] = [
     id: "presidential-executive-suite",
     name: "Presidential Executive Suite",
     category: "Executive Suite",
-    tagline: "Spacious multi-room luxury featuring private VIP salon & dining boardroom",
+    tagline: "Spacious luxury featuring signature striped feature wall & ensuite porcelain bathtub",
     priceUSD: 165,
     priceNLE: 3875,
     size: "78 m² / 840 sq ft",
     capacity: { adults: 2, children: 2 },
-    bedType: "King Master Bed + Plush Sectional Lounge",
-    description: "The crown jewel of Gallines Paradise. Includes a massive separate private living room furnished with custom red sectional sofa seating, dedicated conference dining table, large flat-screen smart TV, private wet bar refrigerator, quiet split air-conditioning, and ensuite master bath with deep soaking tub.",
-    image: suiteImg,
+    bedType: "Master Queen Bed + Luxury Furnishings",
+    description: "The crown jewel of Gallines Paradise. Features a distinctive black-and-white striped accent wall, premium queen bedding with gold & black striped runner, bedside wooden nightstands with reading lamps, floor lamp, whisper-quiet split air-conditioning, and a spotless ensuite bathroom with deep porcelain soaking tub and modern vanity.",
+    image: stripedSuiteImg,
     gallery: [
-      suiteImg,
-      RESORT_IMAGES.suiteLounge,
-      RESORT_IMAGES.bathroom,
-      heroImg
+      stripedSuiteImg,
+      bathroomImg,
+      drivewayImg,
+      swimmingPoolImg
     ],
     features: [
-      "Separate VIP Living Room & Salon",
-      "Executive Dining & Boardroom Table",
-      "Master King Bed with Ornate Drape Accents",
-      "Deep Soaking Porcelain Bathtub & Rain Shower",
-      "Dual Smart Flat Screen TVs with Satellite Channels",
-      "Private High-Capacity Split AC in all rooms",
+      "Designer Black & White Striped Feature Wall",
+      "Queen Bed with High-Thread White Linens",
+      "Ensuite Bathroom with Deep Bathtub & Hot Shower",
+      "High-Capacity Whisper Split Air Conditioning",
+      "Dual Bedside Nightstands with Reading Lamps",
+      "Floor-to-Ceiling Ambient Window Drapes",
       "Mini Refrigerator & Coffee/Tea Station",
-      "High-Speed Fiber WiFi & Executive Desk"
+      "High-Speed Fiber WiFi & Satellite TV"
     ],
     amenities: [
       "24/7 Room Service",
       "Complimentary Paradise Breakfast",
-      "Unlimited Gym & Sports Arena Access",
+      "Unlimited Swimming Pool & Sports Arena Access",
       "Bathrobes & Luxury Toiletries",
       "Daily Housekeeping",
       "Secure Digital Safe"
@@ -78,32 +80,32 @@ export const ROOMS_DATA: Room[] = [
   },
   {
     id: "deluxe-paradise-king",
-    name: "Deluxe Paradise King Suite",
+    name: "Deluxe Paradise Bedroom Suite",
     category: "Deluxe King",
-    tagline: "Sophisticated tranquil sanctuary with king bed and private ensuite bath",
+    tagline: "Sophisticated tranquil sanctuary with striped accent wall and private ensuite bath",
     priceUSD: 110,
     priceNLE: 2585,
     size: "48 m² / 516 sq ft",
     capacity: { adults: 2, children: 1 },
-    bedType: "1 Super King Bed",
-    description: "Elegantly finished with cool ceramic tile flooring, warm ambient wall sconces, imported drape curtains, whisper-quiet air conditioning, and a private ensuite bathroom with bathtub and vanity station. Perfect for business travelers and vacationing couples.",
-    image: RESORT_IMAGES.suiteLounge,
+    bedType: "1 Queen Bed with Designer Accents",
+    description: "Elegantly finished with cool ceramic tile flooring, signature striped accent wall, warm wooden nightstands, imported sheer drape curtains, whisper-quiet air conditioning, and a private ensuite bathroom with bathtub and vanity station.",
+    image: stripedSuiteImg,
     gallery: [
-      RESORT_IMAGES.suiteLounge,
-      suiteImg,
-      RESORT_IMAGES.bathroom
+      stripedSuiteImg,
+      bathroomImg,
+      gazebosImg
     ],
     features: [
-      "Plush Super King Mattress with High-Thread Linens",
-      "Ensuite Bathroom with Bathtub & Hot Water Shower",
+      "Plush Queen Mattress with Striped Bed Runner",
+      "Ensuite Bathroom with Porcelain Bathtub & Shower",
       "Whisper-Quiet Remote Split Air Conditioning",
       "Wall-Mounted Satellite Flat Screen TV",
-      "Work Desk with Ergonomic Chair",
+      "Bedside Table Lamps & Reading Lights",
       "In-Room Mini Fridge & Kettle"
     ],
     amenities: [
       "Complimentary Breakfast",
-      "Full Fitness Center Access",
+      "Full Swimming Pool & Fitness Center Access",
       "High-Speed Wi-Fi",
       "Daily Room Refresh",
       "Free Onsite Secured Parking"
@@ -114,55 +116,57 @@ export const ROOMS_DATA: Room[] = [
     id: "garden-bungalow-chalet",
     name: "Private Garden Chalet Villa",
     category: "Garden Chalet",
-    tagline: "Tranquil detached chalet surrounded by swaying palms and tropical flowerbeds",
+    tagline: "Tranquil detached chalet along the paved palm avenue surrounded by tropical flora",
     priceUSD: 85,
     priceNLE: 1995,
     size: "40 m² / 430 sq ft",
     capacity: { adults: 2, children: 1 },
     bedType: "1 Queen Bed",
-    description: "Located along the serene paved driveway of the resort estate. Steps from the outdoor thatched gazebos and sports court, offering quiet privacy, individual entrance porch, full air-conditioning, and immediate garden strolls.",
-    image: heroImg,
+    description: "Located along the serene paved driveway of the resort estate. Steps from the outdoor thatched gazebos, swimming pool, and sports court, offering quiet privacy, paved entrance walkway, full air-conditioning, and immediate garden strolls.",
+    image: drivewayImg,
     gallery: [
-      heroImg,
-      RESORT_IMAGES.gazeboGarden,
-      RESORT_IMAGES.driveway
+      drivewayImg,
+      gazebosImg,
+      stripedSuiteImg,
+      bathroomImg
     ],
     features: [
-      "Direct Garden & Driveway Access",
-      "Private Covered Front Veranda",
+      "Direct Garden & Paved Driveway Access",
+      "Private Covered Front Entrance",
       "Queen Size Bed with Premium Bedding",
-      "Ensuite Bathroom with Fresh Towels & Amenities",
+      "Ensuite Bathroom with Fresh Towels & Bathtub",
       "Split Air Conditioning",
       "Satellite TV & High-Speed WiFi"
     ],
     amenities: [
       "Daily Breakfast Included",
-      "Sports Court & Gym Access",
-      "Free Parking Outside Unit",
+      "Swimming Pool & Sports Arena Access",
+      "Free Parking Outside Chalet",
       "24/7 Security Patrol"
     ],
     featured: false
   },
   {
     id: "family-twin-residence",
-    name: "Paradise Family Twin Suite",
+    name: "Paradise Poolside Family Residence",
     category: "Family Suite",
-    tagline: "Two comfortable beds with spacious floorplan ideal for families or teams",
+    tagline: "Spacious accommodation with direct access to pool deck, gazebos and sports arena",
     priceUSD: 135,
     priceNLE: 3170,
     size: "56 m² / 600 sq ft",
     capacity: { adults: 3, children: 2 },
-    bedType: "2 Queen Beds or 1 King + 2 Singles",
-    description: "Designed for families, sports teams, or traveling colleagues. Ample closet storage, large sitting area, dual beds, modern bathroom, and direct access to resort sports facilities and gazebos.",
-    image: RESORT_IMAGES.exteriorEstate,
+    bedType: "Queen Beds with Extra Space",
+    description: "Designed for families, vacationing groups, or traveling colleagues. Steps from the sparkling outdoor swimming pool and thatched gazebos, featuring modern bathroom with bathtub, split air-conditioning, and high-speed Wi-Fi.",
+    image: swimmingPoolImg,
     gallery: [
-      RESORT_IMAGES.exteriorEstate,
-      suiteImg,
-      RESORT_IMAGES.sports
+      swimmingPoolImg,
+      stripedSuiteImg,
+      sportsImg,
+      bathroomImg
     ],
     features: [
-      "Two Comfortable Beds with Hypoallergenic Linens",
-      "Spacious Sitting Area with Armchairs",
+      "Immediate Access to Swimming Pool & Sun Deck",
+      "Comfortable Beds with Hypoallergenic Linens",
       "Ensuite Full Bathroom with Bathtub",
       "Split System Air Conditioning",
       "Multi-device High Speed WiFi",
@@ -170,7 +174,7 @@ export const ROOMS_DATA: Room[] = [
     ],
     amenities: [
       "Family Breakfast Package",
-      "Free Tennis / Sports Arena Booking",
+      "Swimming Pool & Sports Arena Access",
       "Gym Access for all Guests",
       "Luggage Assistance"
     ],
@@ -180,6 +184,28 @@ export const ROOMS_DATA: Room[] = [
 
 export const AMENITIES_DATA: Amenity[] = [
   {
+    id: "swimming-pool",
+    title: "Outdoor Swimming Pool & Sun Deck",
+    category: "Wellness",
+    shortDesc: "Sparkling turquoise swimming pool with sun lounger terrace, surrounded by palm trees.",
+    longDesc: "Take a refreshing dip in our pristine resort swimming pool. Featuring terraced steps with stainless steel safety rails, comfortable poolside sun loungers, and tropical palm tree views under the blue sky.",
+    iconName: "Sparkles",
+    image: swimmingPoolImg,
+    badge: "Guest Favorite",
+    highlights: ["Crystal Clear Turquoise Water", "Poolside Loungers & Sunbeds", "Terraced Step Entry", "Surrounded by Palms & Greenery"]
+  },
+  {
+    id: "garden-gazebos",
+    title: "Tropical Thatched Gazebos & Garden Bar",
+    category: "Dining",
+    shortDesc: "Charming conical thatched cabanas nestled amongst lush palm trees for private open-air dining.",
+    longDesc: "Immerse yourself in authentic tropical tranquility. Our handcrafted thatched conical gazebos provide the perfect shaded sanctuary for romantic candlelit dinners, chilled coconut drinks, afternoon teas, or celebratory barbecue gatherings with friends.",
+    iconName: "Palmtree",
+    image: gazebosImg,
+    badge: "Signature Oasis",
+    highlights: ["Conical Thatched Roof Cabanas", "Lush Palm & Flowerbed Setting", "Full Waiter Service", "Evening Lantern Ambiance"]
+  },
+  {
     id: "sports-arena",
     title: "All-Weather Sports Court & Mini-Pitch",
     category: "Sports",
@@ -187,52 +213,30 @@ export const AMENITIES_DATA: Amenity[] = [
     longDesc: "Our perimeter-fenced sports arena features high-grade artificial turf, regulation boundary netting, and nighttime illumination. Perfect for competitive tennis matches, recreational football, morning cardio drills, or group team building.",
     iconName: "Activity",
     image: sportsImg,
-    badge: "Guest Favorite",
+    badge: "Sports & Fitness",
     highlights: ["Tennis & Football Netting", "High Perimeter Safety Fence", "Night Floodlighting", "Equipment Available at Front Desk"]
+  },
+  {
+    id: "estate-grounds",
+    title: "Private Estate Chalets & Paved Avenue",
+    category: "Services",
+    shortDesc: "Quiet paved avenues lined with planter boxes, chalets, and 24/7 security.",
+    longDesc: "Our secure gated estate features paved cobblestone avenues, elegant single-story guest chalets, manicured garden planter boxes with snake plants, and generous on-site secured parking.",
+    iconName: "ShieldCheck",
+    image: drivewayImg,
+    badge: "Gated & Secure",
+    highlights: ["24/7 Security Patrol & Guards", "Secure On-Site Guest Parking", "Lush Landscaped Avenues", "Quiet Residential Atmosphere"]
   },
   {
     id: "fitness-gym",
     title: "State-of-the-Art Fitness Center",
     category: "Wellness",
     shortDesc: "Complete gym featuring modern treadmills, stationary cardio bikes, free weights & exercise balls.",
-    longDesc: "Stay energized throughout your stay in our spacious, air-conditioned workout hall. Equipped with commercial-grade running treadmills, cycling machines, strength benches, dumbbells, yoga mats, and resistance balls with panoramic workout mirrors.",
+    longDesc: "Stay energized throughout your stay in our spacious, air-conditioned workout hall. Equipped with commercial-grade running treadmills, cycling machines, strength benches, dumbbells, yoga mats, and resistance balls.",
     iconName: "Dumbbell",
     image: RESORT_IMAGES.gym,
     badge: "Complimentary for Guests",
     highlights: ["Motorized Running Treadmills", "Cardio Spin & Stationary Bikes", "Full Free Weights & Benches", "Stability Balls & Yoga Floor Mats"]
-  },
-  {
-    id: "garden-gazebos",
-    title: "Tropical Thatched Gazebos & Garden Bar",
-    category: "Dining",
-    shortDesc: "Charming conical thatched cabanas nestled amongst lush palm trees for private open-air dining.",
-    longDesc: "Immerse yourself in authentic tropical tranquility. Our handcrafted thatched gazebos provide the perfect shaded sanctuary for romantic candlelit dinners, chilled coconut drinks, afternoon teas, or celebratory barbecue gatherings with friends.",
-    iconName: "Palmtree",
-    image: diningImg,
-    badge: "Signature Oasis",
-    highlights: ["Private Outdoor Seating", "Lush Palm & Flowerbed Setting", "Full Waiter Service", "Evening Lantern Ambiance"]
-  },
-  {
-    id: "reception-concierge",
-    title: "24/7 Front Desk & Modern Mobile Payments",
-    category: "Services",
-    shortDesc: "Warm Sierra Leonean hospitality with instant Orange Money & SLCB QR Payment convenience.",
-    longDesc: "From the moment you arrive at our gilded reception counter under crystal chandeliers, our dedicated concierge team handles everything from instant mobile checkout (Orange Money / SLCB QR / Cards) to car transfers, luggage assistance, and tour arrangements.",
-    iconName: "ShieldCheck",
-    image: RESORT_IMAGES.reception,
-    badge: "Instant Mobile Checkout",
-    highlights: ["Orange Money & SLCB QR Payments", "24-Hour Attentive Front Desk", "Secure Gated Property with Guards", "Uninterrupted Solar & Generator Power"]
-  },
-  {
-    id: "banquet-hall",
-    title: "Grand Event Hall & Conference Suites",
-    category: "Events",
-    shortDesc: "Impressive columned hall for weddings, corporate summits, galas & private receptions.",
-    longDesc: "Host your most memorable milestones at Gallines Paradise. Our grand estate building features classical architecture, high-capacity meeting halls, PA audio sound systems, executive catering, and secure VIP parking for up to 300 delegates.",
-    iconName: "Users",
-    image: RESORT_IMAGES.exteriorEstate,
-    badge: "Up to 300 Guests",
-    highlights: ["Custom Banquet & Conference Seating", "High-Definition Projection & Audio", "Gourmet Event Buffet Menus", "Dedicated Event Coordinator"]
   },
   {
     id: "fine-dining",
@@ -241,7 +245,7 @@ export const AMENITIES_DATA: Amenity[] = [
     shortDesc: "Authentic local delicacies, fresh grilled fish, continental steaks & tropical signature cocktails.",
     longDesc: "Our master chefs celebrate the rich culinary heritage of West Africa alongside beloved continental favorites. Savor tender grilled meats, spicy jollof rice, fresh cassava leaf stew, cold local beers, and handcrafted tropical cocktails.",
     iconName: "UtensilsCrossed",
-    image: diningImg,
+    image: gazebosImg,
     badge: "Open Daily 7AM - 11PM",
     highlights: ["Farm-Fresh Ingredients", "In-Room & Gazebo Room Service", "Full-Service Cocktail Bar", "Special Weekend Live BBQ"]
   }
@@ -250,73 +254,73 @@ export const AMENITIES_DATA: Amenity[] = [
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "gal-1",
-    title: "Royal Stone Welcome Entrance",
+    title: "Paved Estate Avenue & Chalets",
     category: "facilities",
-    image: heroImg,
-    caption: "The majestic 'Welcome to Galliness Paradise' entrance wall with regal crests and stone driveway."
+    image: drivewayImg,
+    caption: "The serene paved driveway and guest chalets flanked by raised garden planters and tropical palms."
   },
   {
     id: "gal-2",
-    title: "Presidential Suite VIP Living Room",
+    title: "Deluxe Striped Bedroom Suite",
     category: "suites",
-    image: suiteImg,
-    caption: "Spacious executive salon featuring plush red sectional seating, dining boardroom, and flat-screen TV."
+    image: stripedSuiteImg,
+    caption: "Executive bedroom suite featuring the iconic black and white vertical striped wall, queen bed, and split AC."
   },
   {
     id: "gal-3",
-    title: "All-Weather Sports Court",
-    category: "sports",
-    image: sportsImg,
-    caption: "Professional turf sports court with perimeter safety fence for tennis, football, and fitness drills."
+    title: "Resort Swimming Pool & Sun Deck",
+    category: "facilities",
+    image: swimmingPoolImg,
+    caption: "Sparkling outdoor swimming pool with terraced entry, poolside lounge chairs, and resort backdrop."
   },
   {
     id: "gal-4",
-    title: "Tropical Thatched Gazebos",
+    title: "Tropical Thatched Garden Gazebos",
     category: "gardens",
-    image: diningImg,
-    caption: "Handcrafted garden huts surrounded by towering palm trees, perfect for outdoor dining and chilled drinks."
+    image: gazebosImg,
+    caption: "Handcrafted conical thatched gazebos set in a lush palm grove for peaceful dining and leisure."
   },
   {
     id: "gal-5",
-    title: "Grand Estate Portico & Pillars",
-    category: "facilities",
-    image: RESORT_IMAGES.exteriorEstate,
-    caption: "Classical architectural facade of the main resort building framed by lush tropical croton plants."
+    title: "Ensuite Bathtub & Vanity",
+    category: "suites",
+    image: bathroomImg,
+    caption: "Sparkling clean ensuite bathroom with deep porcelain soaking bathtub, modern toilet, and vanity sink."
   },
   {
     id: "gal-6",
-    title: "Indoor Fitness Gym & Cardio Hub",
+    title: "All-Weather Sports Arena",
     category: "sports",
-    image: RESORT_IMAGES.gym,
-    caption: "Fully equipped gym floor with modern treadmills, stationary exercise bikes, workout balls, and weights."
+    image: sportsImg,
+    caption: "Turf sports court with perimeter safety fence for tennis, five-a-side football, and fitness drills."
   },
   {
     id: "gal-7",
-    title: "Master Deluxe Bedroom Suite",
+    title: "Comfortable Bedroom Suite Interior",
     category: "suites",
-    image: RESORT_IMAGES.suiteLounge,
-    caption: "Deluxe King bedroom with crisp white linens, split AC, tiled floors, and ambient golden lighting."
+    image: stripedSuiteImg,
+    caption: "Warm bedside lighting, wooden nightstands, split air conditioner, and crisp white bed linens."
   },
   {
     id: "gal-8",
-    title: "Ensuite Bathtub & Shower",
-    category: "suites",
-    image: RESORT_IMAGES.bathroom,
-    caption: "Private ensuite bathroom with pristine bathtub, hot water shower, and fresh bath towels."
+    title: "Poolside Relaxation & Palms",
+    category: "facilities",
+    image: swimmingPoolImg,
+    caption: "Relaxing resort atmosphere by the pool surrounded by tropical vegetation and tiled buildings."
   },
   {
     id: "gal-9",
-    title: "Front Desk & Gold Reception",
-    category: "facilities",
-    image: RESORT_IMAGES.reception,
-    caption: "24/7 Reception desk equipped with seamless Orange Money and SLCB QR mobile payment terminals."
+    title: "Garden Cabana Walkways",
+    category: "gardens",
+    image: gazebosImg,
+    caption: "Conical thatched huts and gravel garden pathways beneath towering coconut palms."
   },
   {
     id: "gal-10",
-    title: "Resort Driveway & Bungalow Avenues",
+    title: "Estate Driveway & Palm Landscaping",
     category: "gardens",
-    image: RESORT_IMAGES.driveway,
-    caption: "Tree-lined paved avenue leading to private guest chalets with stone planter boxes."
+    image: drivewayImg,
+    caption: "Stone planters and peaceful driveway leading to the guest chalets and resort facilities."
   }
 ];
 

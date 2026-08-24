@@ -84,3 +84,59 @@ export interface Review {
   stayType: string;
   verified: boolean;
 }
+
+// User Profile & Roles
+export type UserRole = 'admin' | 'staff' | 'guest';
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  displayName: string;
+  photoURL?: string;
+  role: UserRole;
+  phone?: string;
+  status: 'active' | 'suspended';
+  createdAt: string;
+  lastLoginAt?: string;
+}
+
+// Blog Posts
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  coverImage: string;
+  category: 'Resort News' | 'Dining & Cuisine' | 'Local Experiences' | 'Events & Weddings' | 'Wellness & Sports';
+  authorId: string;
+  authorName: string;
+  status: 'published' | 'draft';
+  readTime: string;
+  publishedAt: string;
+  updatedAt?: string;
+  tags?: string[];
+}
+
+// Stored Booking Records
+export interface StoredBooking {
+  id: string;
+  guestName: string;
+  guestEmail: string;
+  guestPhone: string;
+  roomId: string;
+  roomName: string;
+  checkIn: string;
+  checkOut: string;
+  nights: number;
+  adults: number;
+  children: number;
+  totalPriceUSD: number;
+  totalPriceNLE: number;
+  currency: 'USD' | 'NLE';
+  paymentMethod: string;
+  paymentStatus: 'pending' | 'confirmed' | 'cancelled';
+  status: 'pending' | 'confirmed' | 'checked_in' | 'completed' | 'cancelled';
+  notes?: string;
+  createdAt: string;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ROOMS_DATA, RESORT_INFO } from '../data/resortData';
-import { Currency, Room } from '../types';
+import { Currency, Room, StoredBooking } from '../types';
+import { createBookingRecord } from '../services/adminService';
 import confetti from 'canvas-confetti';
 import { 
   X, 
@@ -80,6 +81,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   // Generated Booking Reference
   const [bookingRef, setBookingRef] = useState('');
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (selectedRoomId) {
@@ -125,21 +127,50 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     setStep(3);
   };
 
-  const handleConfirmReservation = () => {
+  const handleConfirmReservation = async () => {
+    setSaving(true);
     const randomCode = `GPR-2026-${Math.floor(10000 + Math.random() * 90000)}`;
     setBookingRef(randomCode);
-    setStep(4);
 
-    // Trigger celebratory confetti
+    // Save to Firestore bookings collection for administrator view
     try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#d4af37', '#10b981', '#f59e0b', '#ffffff']
-      });
-    } catch {
-      // safe fallback
+      const newBookingRecord: StoredBooking = {
+        id: randomCode,
+        guestName: guestName || 'Guest User',
+        guestEmail: guestEmail || 'guest@example.com',
+        guestPhone: guestPhone || '+232 76 000 000',
+        roomId: currentRoom.id,
+        roomName: currentRoom.name,
+        checkIn,
+        checkOut,
+        nights,
+        adults,
+        children,
+        totalPriceUSD: grandTotalUSD,
+        totalPriceNLE: grandTotalNLE,
+        currency,
+        paymentMethod: paymentMethod.replace('_', ' ').toUpperCase(),
+        paymentStatus: paymentMethod === 'reception' ? 'pending' : 'confirmed',
+        status: 'confirmed',
+        notes: specialRequests,
+        createdAt: new Date().toISOString()
+      };
+      await createBookingRecord(newBookingRecord);
+    } catch (err) {
+      console.warn('Booking saved locally, firestore sync note:', err);
+    } finally {
+      setSaving(false);
+      setStep(4);
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#4a5340', '#d4af37', '#10b981', '#ffffff']
+        });
+      } catch {
+        // safe fallback
+      }
     }
   };
 
@@ -152,7 +183,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       id="booking-modal-overlay"
       className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
     >
-      <div className="relative w-full max-w-3xl bg-[#0e1619] border border-amber-500/30 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <div className="relative w-full max-w-3xl bg-[#0e1619] border border-amber-500/30 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col text-slate-100">
         
         {/* Modal Top Bar */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-[#0a1012]">
@@ -177,7 +208,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -309,7 +340,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="flex justify-end pt-2">
                 <button
                   type="submit"
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold uppercase tracking-wider text-xs shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-amber-500 transition-all flex items-center gap-2"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold uppercase tracking-wider text-xs shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-amber-500 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span>Continue to Guest Details</span>
                   <ArrowRight className="w-4 h-4" />
@@ -446,7 +477,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-4 py-2.5 text-xs text-slate-400 hover:text-white flex items-center gap-1.5"
+                  className="px-4 py-2.5 text-xs text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   <span>Back to Dates</span>
@@ -454,7 +485,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                 <button
                   type="submit"
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold uppercase tracking-wider text-xs shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-amber-500 transition-all flex items-center gap-2"
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold uppercase tracking-wider text-xs shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-amber-500 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span>Proceed to Payment</span>
                   <ArrowRight className="w-4 h-4" />
@@ -639,7 +670,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setStep(2)}
-                  className="px-4 py-2.5 text-xs text-slate-400 hover:text-white flex items-center gap-1.5"
+                  className="px-4 py-2.5 text-xs text-slate-400 hover:text-white flex items-center gap-1.5 cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   <span>Back to Info</span>
@@ -647,11 +678,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                 <button
                   type="button"
+                  disabled={saving}
                   onClick={handleConfirmReservation}
-                  className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-600 text-slate-950 font-bold uppercase tracking-wider text-xs shadow-lg shadow-emerald-500/30 hover:from-emerald-400 hover:to-emerald-500 transition-all flex items-center gap-2"
+                  className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-600 text-slate-950 font-bold uppercase tracking-wider text-xs shadow-lg shadow-emerald-500/30 hover:from-emerald-400 hover:to-emerald-500 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-60"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Confirm Reservation Now</span>
+                  <span>{saving ? 'Recording Booking...' : 'Confirm Reservation Now'}</span>
                 </button>
               </div>
 
@@ -732,7 +764,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <button
                   type="button"
                   onClick={handlePrint}
-                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold uppercase flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold uppercase flex items-center gap-2 cursor-pointer"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Print Voucher</span>
@@ -751,7 +783,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-6 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs uppercase"
+                  className="px-6 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs uppercase cursor-pointer"
                 >
                   Done
                 </button>

@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        getUserData().role == 'admin' ||
+        request.auth.token.email == 'nabieumelissajosephine@gmail.com'
+      );
+    }
+
+    function isStaffOrAdmin() {
+      return isAuthenticated() && (
+        getUserData().role in ['admin', 'staff'] ||
+        request.auth.token.email == 'nabieumelissajosephine@gmail.com'
+      );
+    }
+
+    // User profiles
+    match /users/{userId} {
+      // Anyone signed in can read profiles or check their own
+      allow read: if isAuthenticated();
+      // Users can create/update their own profile, or admins can manage all
+      allow create: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow update: if isAuthenticated() && (
+        (request.auth.uid == userId && (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status']) || isAdmin())) ||
+        isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Blog Posts
+    match /posts/{postId} {
+      // Public can read published posts; staff/admins can read all (including drafts)
+      allow read: if resource.data.status == 'published' || isStaffOrAdmin();
+      // Only staff/admin can create, update, or delete blog articles
+      allow create, update, delete: if isStaffOrAdmin();
+    }
+
+    // Bookings
+    match /bookings/{bookingId} {
+      // Public / guests can submit bookings, or book when logged in
+      allow create: if true;
+      // Guests can read their own bookings; staff/admin can view all bookings
+      allow read: if isStaffOrAdmin() || (isAuthenticated() && resource.data.guestEmail == request.auth.token.email);
+      // Staff/admin can update/manage booking statuses
+      allow update: if isStaffOrAdmin() || (isAuthenticated() && resource.data.guestEmail == request.auth.token.email);
+      allow delete: if isAdmin();
+    }
+  }
+}
